@@ -137,7 +137,8 @@ class BikeShareSystem:
     def avg_distance_by_user_type(self) -> pd.Series:
         df = self._trips()
         return df.groupby("user_type")["distance_km"].mean().round(3)
-
+    
+    #محاسبه نرخ استفاده از دوچرخه‌ها.
     def bike_utilization_rate(self) -> float:
         df = self._trips()
         total_used_minutes = df["duration_minutes"].sum()
@@ -212,7 +213,8 @@ class BikeShareSystem:
         out = df.loc[any_mask, ["trip_id", "duration_minutes", "distance_km", "user_type", "status"]].copy()
         out["outlier_reason"] = reasons[any_mask]
         return out.sort_values(["outlier_reason", "duration_minutes"], ascending=[True, False])
-
+    
+    #محاسبه درآمد بر اساس نوع کاربر.
     def revenue_by_user_type(self) -> pd.Series:
         df = self._trips()
         casual = CasualPricing()
@@ -232,14 +234,15 @@ class BikeShareSystem:
         return pd.Series(rev).round(2)
 
     # --------------------- Reporting ---------------------
-
+    ###
     def export_outputs(self) -> None:
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         self.top_start_stations().to_csv(OUTPUT_DIR / "top_stations.csv", index=False)
         self.top_active_users().to_csv(OUTPUT_DIR / "top_users.csv", index=False)
         ms = self.maintenance_cost_by_bike_type().reset_index().rename(columns={"cost": "total_cost"})
         ms.to_csv(OUTPUT_DIR / "maintenance_summary.csv", index=False)
-
+     
+     ###
     def generate_summary_report(self) -> None:
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         report_path = OUTPUT_DIR / "summary_report.txt"
