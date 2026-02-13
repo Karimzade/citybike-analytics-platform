@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import subprocess
-import sys
+import sys  #دسترسی به اطلاعات مربوط به اجرای پایتون
 
 from analyzer import BikeShareSystem, OUTPUT_DIR, DATA_DIR
 from visualization import (
@@ -17,11 +17,9 @@ from algorithms import benchmark_sort, benchmark_search, merge_sort
 
 
 def ensure_input_csvs() -> str | None:
-    """
-    Ensure raw input CSVs exist.
-    If missing, run generate_data.py and capture its stdout so nothing prints before main.py.
-    Returns captured stdout (or None if nothing was generated).
-    """
+    
+    #Ensure raw input CSVs exist.If missing, run generate_data.py 
+   
     required = ["stations.csv", "trips.csv", "maintenance.csv"]
     missing = [f for f in required if not (DATA_DIR / f).exists()]
 
