@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import subprocess
-import sys  #دسترسی به اطلاعات مربوط به اجرای پایتونb
+import sys  #دسترسی به اطلاعات مربوط به اجرای پایتونbjh
 
 from analyzer import BikeShareSystem, OUTPUT_DIR, DATA_DIR
 from visualization import (
